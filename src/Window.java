@@ -78,7 +78,7 @@ public class Window extends JFrame implements ActionListener  {
 	        arrCadenas[0] = "MI"; //axioma
 	        listModel.addElement("MI");
 	        lstItems.setModel(listModel);
-	        while (i < 100){  //implementación del "aburrimiento". Lo lógico sería preguntar while ArrCadenas(i) <> "MU" 
+	        while (i < 100 && !arrCadenas[mIndice-1].equals("MU")){  //implementación del "aburrimiento". Lo lógico sería preguntar while ArrCadenas(i) <> "MU" 
 	            GeneraMU(arrCadenas[i]);
 	            listModel.addElement(arrCadenas[i]);
 		        lstItems.setModel(listModel);
@@ -123,8 +123,14 @@ public class Window extends JFrame implements ActionListener  {
                 arrCadenas = Redim(arrCadenas,mIndice);
                 arrCadenas[mIndice-1] = CadenaSal;
             }
-            else
+            else{
+            	mIndice = mIndice + 1;  //actualiza el indice del array
+                arrCadenas = Redim(arrCadenas,mIndice);
+                arrCadenas[mIndice-1] = CadenaSal;
+    	        listModel.addElement(arrCadenas[mIndice-1]);
+    	        lstItems.setModel(listModel);
             	JOptionPane.showMessageDialog(this, "¡¡¡MU ENCONTRADO!!!" + CadenaSal);
+            }
         }
     }
     
@@ -143,7 +149,10 @@ public class Window extends JFrame implements ActionListener  {
 
     //Regla 2 Añade x a Mx devolviendo Mxx
     public String Regla2(String Cadena) {
-        Cadena = Cadena + Cadena.substring(2);
+    	if (Cadena.length() <= 2 )
+    		Cadena = Cadena + Cadena.substring(Cadena.length()-1);
+    	else if(Cadena.length() > 2 )
+    		Cadena = Cadena + Cadena.substring(Cadena.length()-1);
         return Cadena;
     }
 
